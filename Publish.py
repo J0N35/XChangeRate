@@ -1,8 +1,8 @@
-#!/usr/bin/python3
+
 # coding: utf-8
 
 # Method 2
-# Different data source, illegal but realtime
+# Different data source, limited query but realtime
 from pubnub import Pubnub as PN
 from time import sleep
 import requests
@@ -28,3 +28,4 @@ if __name__ == '__main__':
             for entry in data['list']['resources']:
                 publish_data(entry['resource']['fields']) # Publish data to PubNub Channel
                 sleep(0.5) # Sleep to prevent over clawing, avoid banned by Yahoo!
+
