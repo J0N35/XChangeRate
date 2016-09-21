@@ -1,4 +1,3 @@
-
 # coding: utf-8
 
 from pubnub import Pubnub
@@ -6,7 +5,6 @@ from pymongo import MongoClient
 import re
 sub_key="sub-c-5373256c-34a4-11e6-ad57-02ee2ddab7fe"
 url = 'mongodb://saturn.ee.ntu.edu.tw:11707'
-
 
 def _callback(message, channel):
     try:
@@ -19,15 +17,12 @@ def _callback(message, channel):
 def _error(message):
     print(message)
 
-
-
 def storeData(data):
     client = MongoClient(url)
     database = client['XChangeRate']
     name = re.sub(r'USD/','',data['name'])
     collection = database[name]
     collection.find_one_and_update({'time':data['time']},{'$set':{'price':data['price'], 'time':data['time']}}, upsert = True)
-
 
 if __name__ == '__main__':
     msg_buffer = []
@@ -38,4 +33,3 @@ if __name__ == '__main__':
             for msg in msg_buffer:
                 storeData(msg)
                 msg_buffer.pop(0)
-
